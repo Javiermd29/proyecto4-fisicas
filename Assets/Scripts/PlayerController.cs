@@ -123,4 +123,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public bool GetIsGameOver()
+    {
+        return isGameOver;
+    }
+
 }

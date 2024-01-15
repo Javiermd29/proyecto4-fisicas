@@ -17,8 +17,12 @@ public class SpawnManager : MonoBehaviour
 
     private int enemiesPerWave = 1;
 
+    private PlayerController playerController;
+
     void Start()
     {
+
+        playerController = FindFirstObjectByType<PlayerController>();
 
         SpawnEnemyWave(enemiesPerWave);
 
@@ -34,7 +38,11 @@ public class SpawnManager : MonoBehaviour
         if (enemiesInScene <= 0)
         {
             enemiesPerWave++;
-            SpawnEnemyWave(enemiesPerWave);
+            if (!playerController.GetIsGameOver())
+            {
+                SpawnEnemyWave(enemiesPerWave);
+            }
+            
         }
 
     }

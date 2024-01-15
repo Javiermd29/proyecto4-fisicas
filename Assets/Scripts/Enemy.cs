@@ -13,20 +13,30 @@ public class Enemy : MonoBehaviour
 
     private SpawnManager spawnManager;
 
+    private PlayerController playerController;
+
     private void Awake()
     {
         enemyRigidBody = GetComponent<Rigidbody>();
     }
 
+
     private void Start()
     {
         player = GameObject.Find("Player");
+        playerController = player.GetComponent<PlayerController>();
         spawnManager = FindObjectOfType<SpawnManager>();
     }
 
     private void Update()
     {
+        if (!playerController.GetIsGameOver())
+        {
+            GoToPlayer();
+        }
+
         GoToPlayer();
+
         if (transform.position.y < lowerLimit)
         {
             spawnManager.EnemyDestroyed();
