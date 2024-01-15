@@ -8,20 +8,35 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject poweUp;
 
-    [SerializeField] private float startDelay = 2f;
-    [SerializeField] private float spawnInterval = 4f;
+    //[SerializeField] private float startDelay = 2f;
+    //[SerializeField] private float spawnInterval = 4f;
 
     private float spawnLimit = 8f;
 
+    private int enemiesInScene;
+
+    private int enemiesPerWave = 1;
+
     void Start()
     {
-        Instantiate(enemy,
-               RandomSpawnPos(),
-               Quaternion.identity);
+
+        SpawnEnemyWave(enemiesPerWave);
 
         Instantiate(poweUp,
-               new Vector3(0,0,3),
+               RandomSpawnPos(),
                Quaternion.identity);
+    }
+
+    private void Update()
+    {
+
+        enemiesInScene = FindObjectsOfType<Enemy>().Length;
+        if (enemiesInScene <= 0)
+        {
+            enemiesPerWave++;
+            SpawnEnemyWave(enemiesPerWave);
+        }
+
     }
 
     private Vector3 RandomSpawnPos()
@@ -32,4 +47,23 @@ public class SpawnManager : MonoBehaviour
         return new Vector3(x, 0, z) ;
 
     }
+
+    private void SpawnEnemyWave(int enemiesToSpawn)
+    {
+        for (int i = 0; i < enemiesToSpawn; i++)
+        {
+            Instantiate(enemy,
+               RandomSpawnPos(),
+               Quaternion.identity);
+
+            enemiesInScene++;
+
+        }
+    }
+
+    public void EnemyDestroyed()
+    {
+        enemiesInScene--;
+    }
+
 }

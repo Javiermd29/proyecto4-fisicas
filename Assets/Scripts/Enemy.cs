@@ -6,8 +6,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private Rigidbody enemyRigidBody;
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private float speed = 2.5f;
     private GameObject player;
+
+    private float lowerLimit = -3f;
+
+    private SpawnManager spawnManager;
 
     private void Awake()
     {
@@ -17,12 +21,25 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         player = GameObject.Find("Player");
+        spawnManager = FindObjectOfType<SpawnManager>();
     }
 
     private void Update()
     {
+        GoToPlayer();
+        if (transform.position.y < lowerLimit)
+        {
+            spawnManager.EnemyDestroyed();
+            Destroy(gameObject);
+        }
+    }
+
+    private void GoToPlayer()
+    {
+
         Vector3 direction = (player.transform.position - transform.position).normalized;
         enemyRigidBody.AddForce(direction * speed);
+
     }
 
 }

@@ -11,30 +11,59 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject focalPointGameObject;
 
-    private bool hasPowerUp;
+    [SerializeField] private bool hasPowerUp;
 
-    [SerializeField]private float powerUpForce = 100f;
+    [SerializeField] private float powerUpForce = 100f;
 
+    [SerializeField] private GameObject[] powerupIndicators;
+
+    private bool isGameOver;
+
+    private int lives;
+
+    private float lowerLimit = -3f;
+
+    private Vector3 initialPosition;
 
     void Awake()
     {
         playerRigidBody = GetComponent<Rigidbody>();
         hasPowerUp = false;
+        initialPosition = Vector3.zero;
+        lives = 3;
+        isGameOver = false;
+
     }
+
+    private void Start()
+    {
+        HideAllPowerupIndicators();
+    }
+
     void Update()
     {
-        forwardInput = Input.GetAxis("Vertical");
 
-       /* if (Mathf.Abs(forwardInput) < 0.01f)
+        if (isGameOver)
         {
-            playerRigidBody.velocity = Vector3.zero;
+            return;
         }
-        else
-        {
-            playerRigidBody.AddForce(focalPointGameObject.transform.forward * speed * forwardInput);
-        } */
 
-        playerRigidBody.AddForce(focalPointGameObject.transform.forward * speed * forwardInput);
+        Movement();
+
+        if (transform.position.y < lowerLimit)
+        {
+            lives--;
+            if (lives <= 0)
+            {
+                //GAME OVER
+                isGameOver = true;
+            }
+            else
+            {
+                transform.position = initialPosition;
+                playerRigidBody.velocity = Vector3.zero;
+            }
+        }
 
     }
 
@@ -61,11 +90,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Movement()
+    {
+
+        forwardInput = Input.GetAxis("Vertical");
+
+        playerRigidBody.AddForce(focalPointGameObject.transform.forward * speed * forwardInput);
+
+    }
+
     private IEnumerator PowerUpCountdown()
     {
-        yield return new WaitForSeconds(6);
+
+        for (int i = 0; i < powerupIndicators.Length; i++)
+        {
+            powerupIndicators[i].SetActive(true);
+            yield return new WaitForSeconds(2);
+            powerupIndicators[i].SetActive(false);
+
+        }
 
         hasPowerUp = false;
+    }
+
+    private void HideAllPowerupIndicators()
+    {
+
+        foreach (GameObject indicator in powerupIndicators)
+        {
+            indicator.SetActive(false);
+        }
+
     }
 
 }
