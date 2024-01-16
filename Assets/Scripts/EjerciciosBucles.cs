@@ -35,6 +35,25 @@ public class EjerciciosBucles : MonoBehaviour
             resultado = resultado + 1;
             
         }
+        Debug.Log("\n===EJERCICIO 8===\n");
+        int tabla = 11;
+        for (int i = 1; i <= 20; i++)
+        {
+            Debug.Log(i + " * " + tabla + " = " + i*tabla + "\n");
+        }
+
+        Debug.Log("\n===EJERCICIO 9===\n");
+        for (int i = 1; i <= 10; i++)
+        {
+            for (int y = 1; y <= 20; y++)
+            {
+                Debug.Log("Tabla de multiplicar del " + i);
+                Debug.Log(y + " * " + i + " = " + y * i + "\n");
+            }
+            
+        }
+
+
     }
 
     
