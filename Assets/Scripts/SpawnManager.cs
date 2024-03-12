@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
 
         playerController = FindFirstObjectByType<PlayerController>();
 
-        SpawnEnemyWave(enemiesPerWave);
+        //SpawnEnemyWave(enemiesPerWave);
 
         Instantiate(poweUp,
                RandomSpawnPos(),
@@ -56,7 +56,7 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-    private void SpawnEnemyWave(int enemiesToSpawn)
+    public void SpawnEnemyWave(int enemiesToSpawn = 1)
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {

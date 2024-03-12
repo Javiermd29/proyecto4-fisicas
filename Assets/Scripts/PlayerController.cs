@@ -6,6 +6,10 @@ public class PlayerController : MonoBehaviour
 {
 
     private Rigidbody playerRigidBody;
+
+    private GameManager gameManager;
+    private UIManager uiManager;
+
     [SerializeField] private float speed = 30f;
     private float forwardInput;
 
@@ -37,7 +41,12 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+
+        gameManager = FindObjectOfType<GameManager>();
+        uiManager = FindObjectOfType<UIManager>();
+
         HideAllPowerupIndicators();
+        
     }
 
     void Update()
@@ -57,6 +66,9 @@ public class PlayerController : MonoBehaviour
             {
                 //GAME OVER
                 isGameOver = true;
+                uiManager.ShowGameOverPanel();
+                Time.timeScale = 0;
+                
             }
             else
             {
