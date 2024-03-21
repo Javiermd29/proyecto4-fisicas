@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
+    public int powerUpsObtained;
+
     private UIManager uiManager;
 
     private PlayerController playerControllerScript;
@@ -64,6 +66,11 @@ public class GameManager : MonoBehaviour
     {
         uiManager.HidePausePanel();
         Time.timeScale = 1;
+    }
+
+    public void UpdatePowerUpsObtained()
+    {
+        uiManager.UpdatePowerUps(powerUpsObtained);
     }
 
 }

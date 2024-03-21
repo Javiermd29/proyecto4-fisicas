@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
             {
                 //GAME OVER
                 isGameOver = true;
-                uiManager.ShowGameOverPanel();
+                uiManager.ShowGameOverPanel(gameManager.powerUpsObtained);
                 Time.timeScale = 0;
                 
             }
@@ -86,6 +86,8 @@ public class PlayerController : MonoBehaviour
             hasPowerUp = true;
             StartCoroutine (PowerUpCountdown());
             Destroy(other.gameObject);
+            gameManager.powerUpsObtained++;
+            gameManager.UpdatePowerUpsObtained();
         }
     }
 

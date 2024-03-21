@@ -22,11 +22,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button restartPauseButton;
 
     private GameManager gameManagerScript;
+    private PlayerController playerControllerScript;
 
     void Start()
     {
         
         gameManagerScript = FindObjectOfType<GameManager>();
+        playerControllerScript = FindObjectOfType<PlayerController>();
 
         restartPauseButton.onClick.AddListener(gameManagerScript.RestartGame);
         restartGOButton.onClick.AddListener(gameManagerScript.RestartGameScene);
@@ -58,11 +60,11 @@ public class UIManager : MonoBehaviour
         pausePanel.SetActive(false);
     }
 
-    public void ShowGameOverPanel()
+    public void ShowGameOverPanel(int powerUpsObtained)
     {
-        //animalFedText.text = "Animals fed: " + animalsFed;
+        powerUpText.text = "PowerUps obtained: " + powerUpsObtained;
         gameOverPanel.SetActive(true);
-        //animalFed2Text.text = "";
+
     }
 
     public void HideGameOverPanel()
@@ -70,9 +72,9 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(false);
     }
 
-    /*public void UpdateFed(int animalsFed)
+    public void UpdatePowerUps(int powerUpsObtained)
     {
-        animalFed2Text.text = "Animals Fed = " + animalsFed;
-    }*/
+        powerUpText.text = "PowerUps Obtained = " + powerUpsObtained;
+    }
 
 }

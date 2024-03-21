@@ -2721,6 +2721,7 @@ MonoBehaviour:
   - {fileID: 1742899853377179}
   - {fileID: 1887969855536240}
   - {fileID: 1758628120433527}
+  powerUpsObtained: 0
 --- !u!1 &1699859298
 GameObject:
   m_ObjectHideFlags: 0
